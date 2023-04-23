@@ -32,6 +32,7 @@ def lista_frutas():
 def tunombre(n):
     return f"hola {n} como estas"
 
+
 #ejercicio2 realizar una ruta que devuelve el cuadrado de un numero, path seria /numero
 
 @app.route("/numero/<int:parametro>")
@@ -40,4 +41,9 @@ def cuadrado (parametro):
     return f"El cuadrado de {parametro} es {parametro*parametro}"
 
 #ejercicio3, realizar una ruta, que dinamicamente pueda solicitar o realizar
-#operaciones de suma,resta, multiplicacion y division segun los parametros pasadon en la ruta
+#operaciones de suma,resta, multiplicacion y division segun los parametros pasados en la ruta
+
+@app.route("/matematicas/<int:n>/<int:n2>")
+def operaciones(n, n2):
+    operaciones_dict = {'suma':(n+n2), 'resta':(n-n2), 'division':(n/n2), 'multiplicacion':(n*n2)}
+    return operaciones_dict

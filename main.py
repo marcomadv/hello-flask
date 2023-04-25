@@ -1,11 +1,11 @@
 #importar la libreria de flask
-from flask import Flask
+from flask import Flask, render_template
 
 #inicializar la variable app con flask
 app = Flask(__name__)
 
 #inicializar el servidor de flask
-#en mac: export FLASK_APP=main.py
+#en mac: export FLASK_APP=main.py <-- nombre del archivo en este caso main.py
 #en windows: set FLASK_APP=main.py
 
 #Comando para ejecutar el servidor:
@@ -43,7 +43,18 @@ def cuadrado (parametro):
 #ejercicio3, realizar una ruta, que dinamicamente pueda solicitar o realizar
 #operaciones de suma,resta, multiplicacion y division segun los parametros pasados en la ruta
 
-@app.route("/matematicas/<int:n>/<int:n2>")
-def operaciones(n, n2):
-    operaciones_dict = {'suma':(n+n2), 'resta':(n-n2), 'division':(n/n2), 'multiplicacion':(n*n2)}
-    return operaciones_dict
+@app.route("/operaciones/<float:n1>/<float:n2>/<string:ope>")
+def operaciones(n1, n2, ope):
+    if ope == "suma":
+        return f"La suma de {n1} y {n2} es: {n1+n2}"
+    elif ope == "resta":
+        return f"La resta de {n1} y {n2} es: {n1-n2}"
+    elif ope == "multiplicacion":
+        return f"La multiplicacion de {n1} y {n2} es: {n1*n2}"
+    elif ope == "division":
+        return f"La division de {n1} y {n2} es: {n1/n2}"
+    
+@app.route("/<nombre>") #esta ruta seria la ruta principal "/" va directo a http://localhost:5000
+def llamarhtml(nombre):
+    frutas = ['Platano','Fresa','Piña','Melón']
+    return render_template("hola.html", name=nombre, fruits=frutas)
